@@ -19,7 +19,7 @@ export async function GET({ params }){
             searchTerms = [...searchTerms, lemmatized[lemmatized.length-1]];
         }
     }
-    let res = await db.query("SELECT * FROM indexedPage WHERE tokens CONTAINSANY $term LIMIT 25", {
+    let res = await db.query("SELECT * FROM indexedPage WHERE url CONTAINS $term OR tokens CONTAINSANY $term LIMIT 25", {
         term: searchTerms
     });
     return new Response(JSON.stringify(res));

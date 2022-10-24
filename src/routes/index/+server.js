@@ -28,7 +28,9 @@ export async function POST(request){
     if(existing[0].result.length > 0){
         return new Response(String("already Indexed"));
     }
-
+    if(indexUrl.includes("web.archive.org") || indexUrl.includes("wikipedia.org") || indexUrl.includes("wikimedia.org")){
+        return new Response(String("excluded url"));
+    }
     if(isValidHttpUrl(indexUrl)){
         const res = await fetch(indexUrl);
         if(res.ok){
@@ -59,9 +61,6 @@ export async function POST(request){
             body = body.replace(/<!--[^]*-->/g,"");
             body = body.replace(/&#[a-zA-Z0-9]*;/g,"");
 
-            /**
-             * @type {any[]}
-             */
             let tokens = [];
             for(let token of jsTokens(body)){
                 if(token.value != ' ' && !tokens.includes(token.value)){
@@ -72,13 +71,41 @@ export async function POST(request){
                 }
             }
 
-            let created = await db.create("indexedPage", {
+            await db.create("indexedPage", {
                 url: indexUrl,
-                rawBody: rawBody,
+                //rawBody: rawBody,
                 tokens: tokens,
                 title: title,
                 time: Date.now(),
             });
+
+            let aTagRegex = /<a([^>]+)>(.+?)<\/a>/gmi;
+            let linksRegex = /\s*href\s*=\s*(\"([^"]*)\"|'[^']*'|([^'">\s]+))/gmi
+            let aTags;
+            let urls = new Set();
+            while((aTags = aTagRegex.exec(rawBody)) != null){
+                for(let aTag of aTags){
+                    let match = linksRegex.exec(aTag);
+                    if(match && match[2]){
+                        if(!match[2].startsWith("#")){
+                            if(!match[2].startsWith("http://") && !match[2].startsWith("https://")){
+                                let url = indexUrl+(match[2].startsWith("/"||indexUrl.endsWith("/"))?'':'/')+match[2];
+                                urls.add(url);
+                            }
+                        }
+                        if(match[2].startsWith("http://") || match[2].startsWith("https://")){
+                            urls.add(match[2]);
+                        }
+                    }
+                }
+            }
+            urls = Array.from(urls);
+            urls.forEach(async url => {
+                await db.create("awaitingIndexing", {
+                    url: url
+                });
+            });
+
             return new Response(JSON.stringify(tokens));
         }
     }
