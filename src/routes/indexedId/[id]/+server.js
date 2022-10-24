@@ -12,7 +12,7 @@ await db.use('se', 'se');
 export async function GET({ params }){
     let id = params.id;
     let res = await db.query("DELETE $id", {
-        id: id
+        id: "awaitingIndexing:"+id
     });
     return new Response(JSON.stringify(res));
 }

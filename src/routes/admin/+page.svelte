@@ -42,7 +42,7 @@
             indexingIndex = i;
             indexUrl = urlArray[i].url;
             await indexPage();
-            let res = await fetch('https://search.netcode.dev/indexedId/'+urlArray[i].id);
+            let res = await fetch('https://search.netcode.dev/indexedId/'+urlArray[i].id.split(":")[1]);
         }
         resetUrls();
         indexing = false;
