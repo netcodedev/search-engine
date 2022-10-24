@@ -8,7 +8,7 @@
 
     let indexedCount = 0;
 
-    fetch("/index/amount").then(async data => {
+    fetch("https://search.netcode.dev/index/amount").then(async data => {
         indexedCount = await data.text();
     }).catch(error => {});
 

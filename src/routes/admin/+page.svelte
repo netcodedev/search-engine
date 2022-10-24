@@ -6,7 +6,7 @@
     let indexingIndex = 0;
     let abortController;
     async function indexPage() {
-        let res = await fetch('index', {
+        let res = await fetch('https://search.netcode.dev/index', {
             method: 'POST',
             body: JSON.stringify({
                 url: indexUrl
@@ -20,7 +20,7 @@
         if(abortController)
 			abortController.abort();
 		abortController = new AbortController();
-        await fetch('awaitingIndexing/', {
+        await fetch('https://search.netcode.dev/awaitingIndexing/', {
 			signal: abortController.signal,
 		}).then(async response => {
 			let res = await response.json();
@@ -42,8 +42,7 @@
             indexingIndex = i;
             indexUrl = urlArray[i].url;
             await indexPage();
-            let res = await fetch('indexedId/'+urlArray[i].id);
-            console.log(await res.json());
+            let res = await fetch('https://search.netcode.dev/indexedId/'+urlArray[i].id);
         }
         resetUrls();
         indexing = false;
@@ -54,8 +53,7 @@
     async function autoIndex(){
         autoIndexing = true;
         while(autoIndexing){
-            await loadAwaitingIndexing();
-            await indexUrls();
+            await loadAwaitingIndexing().then(async ()=> await indexUrls());
         }
     }
     function stopAutoIndexing(){
