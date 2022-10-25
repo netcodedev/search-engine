@@ -28,6 +28,8 @@
                 urls.add(result);
             })
             urls = urls;
+            if(urls.size == 0)
+                stopAutoIndexing();
 		}).catch(error => {
 			//idgaf;
 		})
