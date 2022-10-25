@@ -10,6 +10,6 @@ await db.signin({
 await db.use('se', 'se');
 
 export async function GET(){
-    let res = await db.query("SELECT * FROM awaitingIndexing ORDER BY RAND() LIMIT 250");
+    let res = await db.query("SELECT * FROM awaitingIndexing ORDER BY date ASC LIMIT 250");
     return new Response(JSON.stringify(res));
 }

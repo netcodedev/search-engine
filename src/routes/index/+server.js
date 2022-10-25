@@ -102,7 +102,8 @@ export async function POST(request){
             urls = Array.from(urls);
             urls.forEach(async url => {
                 await db.create("awaitingIndexing", {
-                    url: url
+                    url: url,
+                    date: Date.now()
                 });
             });
 
