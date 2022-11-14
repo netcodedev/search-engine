@@ -30,7 +30,7 @@
 		"cheerio": "^1.0.0-rc.12",
 		"js-tokens": "^8.0.0",
 		"node-lemmatizer": "^1.0.3",
-		"sass": "^1.56.0",
+		"sass": "^1.56.1",
 		"surrealdb.js": "^0.5.0"
 	}
 }
