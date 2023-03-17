@@ -13,7 +13,6 @@ export async function GET({ url }){
     let count = await db.query("SELECT id FROM indexedPage WHERE url CONTAINS $term OR tokens CONTAINSANY $term", {
         term: searchTerms
     });
-    console.log(count[0].result.length)
     let res = await db.query("SELECT url, title FROM indexedPage WHERE url CONTAINS $term OR tokens CONTAINSANY $term LIMIT 25", {
         term: searchTerms
     });
