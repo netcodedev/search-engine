@@ -32,7 +32,7 @@
 	"type": "module",
 	"dependencies": {
 		"cheerio": "^1.0.0-rc.12",
-		"daisyui": "^2.51.5",
+		"daisyui": "^2.51.6",
 		"js-tokens": "^8.0.1",
 		"node-lemmatizer": "^1.0.3",
 		"sass": "^1.62.0"
