@@ -33,7 +33,7 @@
 	"dependencies": {
 		"cheerio": "^1.0.0-rc.12",
 		"daisyui": "^4.6.2",
-		"js-tokens": "^8.0.3",
+		"js-tokens": "^9.0.0",
 		"node-lemmatizer": "^1.0.3",
 		"sass": "^1.70.0"
 	}
