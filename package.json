@@ -35,6 +35,6 @@
 		"daisyui": "^4.7.3",
 		"js-tokens": "^9.0.0",
 		"node-lemmatizer": "^1.0.3",
-		"sass": "^1.71.1"
+		"sass": "^1.72.0"
 	}
 }
