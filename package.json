@@ -21,7 +21,7 @@
 		"postcss": "^8.4.38",
 		"postcss-load-config": "^4.0.2",
 		"prettier": "^3.3.2",
-		"prettier-plugin-svelte": "^3.2.4",
+		"prettier-plugin-svelte": "^3.2.5",
 		"surrealdb.js": "^0.11.1",
 		"svelte": "^3.59.2",
 		"svelte-check": "^3.8.1",
